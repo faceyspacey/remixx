@@ -3,7 +3,7 @@ function babelPlugin() {
     visitor: {
       // eslint-disable-next-line
       Program: function Program(path, { opts }) {
-       // remixx magic
+        // remixx magic
       },
     },
   };

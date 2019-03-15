@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const { transform } = require('@babel/core');
 const plugin = require('../dist/babel');
 const { readFileSync } = require('fs');
