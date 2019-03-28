@@ -1,16 +1,16 @@
+import { addDefault } from '@babel/helper-module-imports';
 import {
   doesReturnJSX,
   getTypesFromFilename,
   isWrappedComponentSet,
   makeWrappedComponent,
 } from './helpers';
-import { addDefault } from "@babel/helper-module-imports";
 
 
 export default ({ types: t }) => ({
   visitor: {
-    Program(path,{file,opts}) {
-      addDefault(path, 'remixx', {nameHint:'Remixx'});
+    Program(path, state) {
+      addDefault(path, 'remixx', { nameHint: 'Remixx' });
     },
     ExportDefaultDeclaration(
       path,
@@ -20,8 +20,8 @@ export default ({ types: t }) => ({
       const arrow = node.isArrowFunctionExpression();
 
       if (
-        !node.isArrowFunctionExpression() &&
-        !node.isFunctionDeclaration()
+        !node.isArrowFunctionExpression()
+          && !node.isFunctionDeclaration()
       ) {
         return;
       }
@@ -31,9 +31,9 @@ export default ({ types: t }) => ({
       }
 
       const { name: functionName } = node.node.id || {};
-      const { identifier, name } = arrow ?
-        getTypesFromFilename(t, opts) :
-        ({
+      const { identifier, name } = arrow
+        ? getTypesFromFilename(t, opts)
+        : ({
           identifier: t.identifier(functionName),
           name: functionName,
         });
@@ -43,16 +43,16 @@ export default ({ types: t }) => ({
 
       const { body, id, params } = node.node;
       // checks to see if we need to convert `export default function () {}`
-      const init = arrow ?
-        node.node :
-        t.functionExpression(id, params, body);
+      const init = arrow
+        ? node.node
+        : t.functionExpression(id, params, body);
 
       const variable = t.variableDeclaration('const', [
         t.variableDeclarator(identifier, init),
       ]);
-      const assignment = isDisplayNameSet(path.getStatementParent(), name) ?
-        undefined :
-        makeDisplayName(t, name);
+      const assignment = isDisplayNameSet(path.getStatementParent(), name)
+        ? undefined
+        : makeDisplayName(t, name);
       const exporter = t.exportDefaultDeclaration(identifier);
 
       path.replaceWithMultiple([
@@ -60,7 +60,7 @@ export default ({ types: t }) => ({
         assignment,
         exporter,
         // filter out possibly undefined assignment
-      ].filter((replacement) => !!replacement));
+      ].filter(replacement => !!replacement));
     },
     JSXElement(path) {
       const { parentPath: parent } = path;
@@ -70,10 +70,8 @@ export default ({ types: t }) => ({
         return;
       }
 
-      const variable = path.find((node) =>
-        node.isVariableDeclarator() || node.isExportDefaultDeclaration() ||
-        node.isJSXExpressionContainer(),
-      );
+      const variable = path.find(node => node.isVariableDeclarator() || node.isExportDefaultDeclaration()
+          || node.isJSXExpressionContainer());
 
       // Ignore JSX elements inside JSX expression blocks
       if (t.isJSXExpressionContainer(variable)) {
@@ -107,4 +105,4 @@ export default ({ types: t }) => ({
       statement.insertAfter(makeWrappedComponent(t, name));
     },
   },
-})
+});

@@ -1,4 +1,5 @@
 import path from 'path';
+import crc32 from 'crc-32';
 
 export const doesReturnJSX = (node) => {
   if (node.isJSXElement()) {
@@ -43,9 +44,9 @@ export const getTypesFromFilename = (
 ) => {
   // ./{module name}/index.js
   const name = t.toBindingIdentifierName(
-    basename === 'index' ?
-      path.basename(path.dirname(filename)) :
-      basename,
+    basename === 'index'
+      ? path.basename(path.dirname(filename))
+      : basename,
   );
 
   return {
@@ -63,8 +64,8 @@ export const isWrappedComponentSet = (
     const expression = sibling.get('expression');
     const member = sibling.get('expression.left');
     return !!((
-      expression.isAssignmentExpression() &&
-      member.get('object')
+      expression.isAssignmentExpression()
+      && member.get('object')
         .isIdentifier({ name: `const ${displayName}` })
     ) || member.get('object')
       .isIdentifier({ name: `const ${displayName}` }));
@@ -81,17 +82,21 @@ export const isWrappedComponentSet = (
 };
 
 
-export const makeWrappedComponent = (t, displayName) =>
-  t.expressionStatement(
-    t.assignmentExpression(
-      '=',
-      t.identifier(`const ${displayName}`),
-      t.identifier(`(props) => {
-      const state = _Remixx.useReduxState();
+export const makeWrappedComponent = (t, displayName) => t.expressionStatement(
+  t.assignmentExpression(
+    '=',
+    t.identifier(`const ${displayName}`),
+    t.identifier(`(props) => {
       const dispatch = _Remixx.useReduxDispatch();
-      const actions = _Remixx.useReduxActions();
-     
+       const { state, actions } = _Remixx.useRespond('__respond_pending_chunk_id__')
       return Wrapped${displayName}(props, state, _Remixx.bindActionCreators(dispatch, actions))
 }`),
-    ),
-  );
+  ),
+);
+
+export const resolveImport = (importName, file = '') => {
+  if (importName.charAt(0) === '.') {
+    return path.relative(process.cwd(), path.resolve(path.dirname(file), importName));
+  }
+  return importName;
+};
