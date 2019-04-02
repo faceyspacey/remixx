@@ -1,6 +1,5 @@
 {
   "name": "remixx",
-  "description": "Frictionless & modular redux connections - supporting both declarative and imperative methodologies",
   "version": "0.0.0-development",
   "repository": {
     "type": "git",
@@ -10,51 +9,18 @@
   "contributors": [
     "Zack Jackson <zack@ScriptedAlchemy.com> (https://github.com/ScriptedAlchemy)"
   ],
-  "main": "./dist/index.js",
-  "module": "./src/index.js",
-  "types": "./src/index.d.ts",
-  "files": [
-    "src",
-    "dist"
-  ],
   "scripts": {
     "manual": "webpack --config webpack.config.js"
   },
-  "keywords": [
-    "react",
-    "redux",
-    "state",
-    "hooks",
-    "stateless",
-    "thisless",
-    "pure"
-  ],
-  "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.3",
-    "@babel/plugin-transform-react-jsx": "^7.3.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
-    "@typescript-eslint/eslint-plugin": "^1.3.0",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
-    "babel-watch": "^7.0.0",
-    "eslint": "^5.14.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4",
-    "html-webpack-plugin": "^3.2.0",
-    "immer": "^2.1.3",
-    "jest": "^24.1.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
-    "ts-loader": "^5.3.3",
-    "typescript": "^3.3.3333",
     "webpack": "^4.29.4",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14"
