@@ -18,11 +18,11 @@
     "dist"
   ],
   "scripts": {
-    "compile": "babel src -d dist",
+    "compile": "babel src/babel -d dist/babel && babel src/webpack -d dist/webpack",
     "test": "npm run eslint && npm run tsc-test && npm run jest",
     "lint": "eslint --ext .js,.ts,.tsx --ignore-pattern dist . --fix",
     "jest": "jest",
-    "manual": "yarn compile && node manual/babel.js",
+    "manual": "npm run compile && cd manual && npm run manual",
     "examples:minimal": "DIR=01_minimal EXT=js webpack-dev-server",
     "examples:typescript": "DIR=02_typescript webpack-dev-server",
     "examples:deep": "DIR=03_deep webpack-dev-server",
@@ -72,17 +72,31 @@
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14"
   },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": true
+          }
+        }
+      ],
+      "@babel/preset-react"
+    ]
+  },
   "peerDependencies": {
     "react": ">=16.8.0",
     "redux": ">=4.0.0"
   },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ]
-  },
   "dependencies": {
-    "@babel/helper-module-imports": "^7.0.0"
+    "@babel/helper-module-imports": "^7.0.0",
+    "cacache": "^11.3.2",
+    "crc-32": "^1.2.0",
+    "find-cache-dir": "^2.1.0",
+    "serialize-javascript": "^1.6.1",
+    "source-map": "^0.7.3",
+    "webpack-sources": "^1.3.0",
+    "worker-farm": "^1.6.0"
   }
 }

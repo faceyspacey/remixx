@@ -1,1 +1,2 @@
-export default props => (<div>{props.thing}</div>);
+const SomeComponent =  props => (<div>{props.thing}</div>);
+export default SomeComponent
