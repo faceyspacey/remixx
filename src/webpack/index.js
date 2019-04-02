@@ -1,9 +1,21 @@
 const createHash = require('webpack/lib/util/createHash');
 
-const NAME = 'RemixxStaticModuleIdsPlugin';
+const NAME = 'RemixxStaticModuleIdsPlugin'
 
 class RemixxStaticModuleIdsPlugin {
   constructor(options) {
+    if (!options) options = {};
+
+
+    this.options = Object.assign(
+      {
+        context: null,
+        hashFunction: 'md4',
+        hashDigest: 'base64',
+        hashDigestLength: 4
+      },
+      options
+    );
   }
 
   apply(compiler) {
@@ -25,7 +37,7 @@ class RemixxStaticModuleIdsPlugin {
               while (usedIds.has(hashId.substr(0, len))) len++;
 
               module.id = hashId.substr(0, len);
-              module._source._value = module._source._value.replace('__respond_pending_chunk_id__', module.id);
+              module._source._value = module._source._value.replace('__respond_pending_chunk_id__', module.id)
               usedIds.add(module.id);
             }
           }
