@@ -18,7 +18,8 @@
     "dist"
   ],
   "scripts": {
-    "compile": "babel src/babel -d dist/babel && babel src/webpack -d dist/webpack",
+    "compile": "babel src -d dist",
+    "compile:babel": "npm run compile && cd newMAnual && babel src -d dist",
     "test": "npm run eslint && npm run tsc-test && npm run jest",
     "lint": "eslint --ext .js,.ts,.tsx --ignore-pattern dist . --fix",
     "jest": "jest",
@@ -91,9 +92,11 @@
   },
   "dependencies": {
     "@babel/helper-module-imports": "^7.0.0",
+    "@babel/traverse": "^7.4.3",
     "cacache": "^11.3.2",
     "crc-32": "^1.2.0",
     "find-cache-dir": "^2.1.0",
+    "reactive-react-redux": "^1.8.0",
     "serialize-javascript": "^1.6.1",
     "source-map": "^0.7.3",
     "webpack-sources": "^1.3.0",

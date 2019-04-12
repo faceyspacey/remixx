@@ -1,3 +1,4 @@
+import traverse from '@babel/traverse';
 import { addDefault } from '@babel/helper-module-imports';
 import {
   doesReturnJSX,
@@ -21,7 +22,7 @@ export default ({ types: t }) => ({
 
       if (
         !node.isArrowFunctionExpression()
-          && !node.isFunctionDeclaration()
+        && !node.isFunctionDeclaration()
       ) {
         return;
       }
@@ -62,21 +63,31 @@ export default ({ types: t }) => ({
         // filter out possibly undefined assignment
       ].filter(replacement => !!replacement));
     },
+
+    JSXIdentifier(path) {
+// console.log(path.node)
+    },
     JSXElement(path) {
       const { parentPath: parent } = path;
-
+      if(path.node && path.scope) {
+        traverse(path.node, {
+          JSXIdentifier(path) {
+            // console.log(path.node.name);
+          }
+        }, path.scope);
+      }
       // avoids traversing assigning jsx to variable
       if (!(parent.isReturnStatement() || parent.isArrowFunctionExpression())) {
         return;
       }
-
       const variable = path.find(node => node.isVariableDeclarator() || node.isExportDefaultDeclaration()
-          || node.isJSXExpressionContainer() || node.isFunctionDeclaration());
+        || node.isJSXExpressionContainer() || node.isFunctionDeclaration());
 
       // Ignore JSX elements inside JSX expression blocks
       if (t.isJSXExpressionContainer(variable)) {
         return;
       }
+
 
       const name = (() => {
         try {
@@ -85,6 +96,7 @@ export default ({ types: t }) => ({
           return undefined;
         }
       })();
+
 
       if (name) {
         variable.node.id.name = `Wrapped${name}`;

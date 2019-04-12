@@ -1,9 +1,8 @@
 import {
-  ReduxProvider,
   useReduxDispatch,
   useReduxState,
   useReduxStateSimple,
-} from 'remixx';
+} from 'reactive-react-redux';
 import { bindActionCreators } from 'redux';
 
 const useReduxActions = () => {
@@ -11,12 +10,11 @@ const useReduxActions = () => {
 };
 
 const useRespond = module => ({
-  state: useReduxState(),
-  actions: useReduxActions(),
+  state: useReduxState,
+  actions: useReduxActions,
 });
 
 export default {
-  ReduxProvider,
   useReduxDispatch,
   useReduxState,
   useReduxStateSimple,
