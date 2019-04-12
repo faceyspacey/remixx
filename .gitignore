@@ -5,3 +5,4 @@ node_modules
 dist
 manual/babeloutput
 manual/dist
+manual/build
