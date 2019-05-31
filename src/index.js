@@ -1,9 +1,9 @@
 import { bindActionCreators } from 'redux';
 import React, {createContext, useContext} from 'react'
 
-const useReduxActions = () => {
-  console.log('actionsGoHere');
-};
+// const useReduxActions = () => {
+//   console.log('actionsGoHere');
+// };
 
 const StoreContext = createContext()
 

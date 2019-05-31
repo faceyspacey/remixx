@@ -42,7 +42,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      remixx: path.resolve(__dirname, '../../dist'),
+      // remixx: path.resolve(__dirname, '../../dist'),
     }
   },
   devServer: {

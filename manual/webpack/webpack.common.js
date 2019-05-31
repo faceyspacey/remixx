@@ -20,6 +20,9 @@ module.exports = {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
         exclude: /(node_modules)/,
+        options: {
+          sourceMaps:true
+        }
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
