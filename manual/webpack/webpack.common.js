@@ -7,22 +7,10 @@ module.exports = {
   entry: commonPaths.entryPath,
   module: {
     rules: [
-      // {
-      //   enforce: 'pre',
-      //   test: /\.(js|jsx)$/,
-      //   loader: 'eslint-loader',
-      //   exclude: /(node_modules)/,
-      //   options: {
-      //     emitWarning: process.env.NODE_ENV !== 'production',
-      //   },
-      // },
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
-        exclude: /(node_modules)/,
-        options: {
-          sourceMaps:true
-        }
+        exclude: /(node_modules)/
       },
       {
         test: /\.(png|jpg|gif|svg)$/,

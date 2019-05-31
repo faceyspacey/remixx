@@ -4,9 +4,8 @@
         [
             "@babel/preset-env",
             {
-                "targets": {
-                    "node": true
-                }
+                "useBuiltIns": "usage",
+                "modules": false
             }
         ]
     ],

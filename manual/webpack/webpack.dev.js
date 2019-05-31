@@ -6,7 +6,7 @@ const commonPaths = require('./paths');
 
 module.exports = {
   mode: 'development',
-  devtool: 'eval',
+  devtool: 'source-map',
   entry: {
     main: require.resolve('../src/index.jsx'),
   },
@@ -39,11 +39,6 @@ module.exports = {
     runtimeChunk: {
       name: "manifest",
     },
-  },
-  resolve: {
-    alias: {
-      // remixx: path.resolve(__dirname, '../../dist'),
-    }
   },
   devServer: {
     contentBase: commonPaths.outputPath,
