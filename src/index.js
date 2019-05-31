@@ -1,24 +1,22 @@
-import {
-  useReduxDispatch,
-  useReduxState,
-  useReduxStateSimple,
-} from 'reactive-react-redux';
 import { bindActionCreators } from 'redux';
+import React, {createContext, useContext} from 'react'
 
 const useReduxActions = () => {
   console.log('actionsGoHere');
 };
 
-const useRespond = module => ({
-  state: useReduxState,
-  actions: useReduxActions,
-});
+const StoreContext = createContext()
+
+const useRespond = () => {
+  const {getState, dispatch} = useContext(StoreContext)
+  const actions = bindActionCreators(getState.actions, dispatch)
+  const state = getState()
+
+  return {state, actions}
+}
 
 export default {
-  useReduxDispatch,
-  useReduxState,
-  useReduxStateSimple,
-  useReduxActions,
+  StoreContext,
   bindActionCreators,
   useRespond,
 };

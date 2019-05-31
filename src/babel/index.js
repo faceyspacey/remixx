@@ -1,4 +1,3 @@
-import traverse from '@babel/traverse';
 import { addDefault } from '@babel/helper-module-imports';
 import {
   doesReturnJSX,
@@ -17,17 +16,22 @@ export default ({ types: t }) => ({
       path,
       { file: { opts } },
     ) {
-      const node = path.get('declaration');
-      const arrow = node.isArrowFunctionExpression();
+      const declarationNode = path.get('declaration');
+      const arrow = declarationNode.isArrowFunctionExpression();
+      // console.log(declarationNode)
+
+      if (opts.filename.includes('App.jsx')) {
+        return;
+      }
 
       if (
-        !node.isArrowFunctionExpression()
-        && !node.isFunctionDeclaration()
+        !declarationNode.isArrowFunctionExpression()
+        && !declarationNode.isFunctionDeclaration()
       ) {
         return;
       }
 
-      if (!doesReturnJSX(node.get('body'))) {
+      if (!doesReturnJSX(declarationNode.get('body'))) {
         return;
       }
 
@@ -39,13 +43,14 @@ export default ({ types: t }) => ({
           name: functionName,
         });
 
-      // sets display name
-      node.node.id = identifier;
 
-      const { body, id, params } = node.node;
+      // sets display name
+      declarationNode.node.id = identifier;
+
+      const { body, id, params } = declarationNode.node;
       // checks to see if we need to convert `export default function () {}`
       const init = arrow
-        ? node.node
+        ? declarationNode.node
         : t.functionExpression(id, params, body);
 
       const variable = t.variableDeclaration('const', [
@@ -64,18 +69,35 @@ export default ({ types: t }) => ({
       ].filter(replacement => !!replacement));
     },
 
-    JSXIdentifier(path) {
-// console.log(path.node)
-    },
-    JSXElement(path) {
-      const { parentPath: parent } = path;
-      if(path.node && path.scope) {
-        traverse(path.node, {
-          JSXIdentifier(path) {
-            // console.log(path.node.name);
-          }
-        }, path.scope);
+    JSXAttribute(path) {
+      // if its the initial provider where the store is attached
+      // dont try and wrap it
+      if (
+        path.node &&
+        path.node.name &&
+        path.node.name.name === 'store' &&
+        path.parentPath.isJSXOpeningElement() &&
+        path.parent && path.parent.name && path.parent.name.name === 'ReduxProvider'
+      ) {
+
+        // Object.assign(path.scope.getFunctionParent(), { isReduxProvider: true });
       }
+    },
+    JSXElement(path, { file: { opts } }) {
+      const { parentPath: parent } = path;
+
+      if (opts.filename.includes('App.jsx')) {
+        return;
+      }
+
+      // if(path.node && path.scope) {
+      //   traverse(path.node, {
+      //     JSXIdentifier(path) {
+      //       // console.log(path.node.name);
+      //     }
+      //   }, path.scope);
+      // }
+
       // avoids traversing assigning jsx to variable
       if (!(parent.isReturnStatement() || parent.isArrowFunctionExpression())) {
         return;
@@ -87,6 +109,8 @@ export default ({ types: t }) => ({
       if (t.isJSXExpressionContainer(variable)) {
         return;
       }
+
+      // console.log(path)
 
 
       const name = (() => {

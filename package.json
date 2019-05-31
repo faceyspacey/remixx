@@ -19,20 +19,11 @@
   ],
   "scripts": {
     "compile": "babel src -d dist",
-    "compile:babel": "npm run compile && cd newMAnual && babel src -d dist",
+    "compile:babel": "npm run compile && cd manual && babel src -d babel-dist",
     "test": "npm run eslint && npm run tsc-test && npm run jest",
     "lint": "eslint --ext .js,.ts,.tsx --ignore-pattern dist . --fix",
     "jest": "jest",
-    "manual": "npm run compile && cd manual && npm run manual",
-    "examples:minimal": "DIR=01_minimal EXT=js webpack-dev-server",
-    "examples:typescript": "DIR=02_typescript webpack-dev-server",
-    "examples:deep": "DIR=03_deep webpack-dev-server",
-    "examples:immer": "DIR=04_immer webpack-dev-server",
-    "examples:localstate": "DIR=05_localstate webpack-dev-server",
-    "examples:memoization": "DIR=06_memoization webpack-dev-server",
-    "examples:multistore": "DIR=07_multistore webpack-dev-server",
-    "examples:dynamic": "DIR=08_dynamic webpack-dev-server",
-    "examples:thunk": "DIR=09_thunk webpack-dev-server"
+    "manual": "npm run compile && cd manual && npm run manual"
   },
   "keywords": [
     "react",
