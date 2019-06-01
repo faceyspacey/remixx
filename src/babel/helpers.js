@@ -87,9 +87,8 @@ export const makeWrappedComponent = (t, displayName) => t.expressionStatement(
     '=',
     t.identifier(`const ${displayName}`),
     t.identifier(`(props) => {
-     // const dispatch = _Remixx.useReduxDispatch;
-       const {state, actions} = _Remixx.useRespond()
-      return Wrapped${displayName}(props, state, actions)
+       const {state, actions, dispatch} = _Remixx.useRespond()
+      return Wrapped${displayName}({dispatch,...props}, state, actions)
 }`),
   ),
 );

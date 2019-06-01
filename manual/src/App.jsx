@@ -1,24 +1,25 @@
-import React, { createContext, useContext } from 'react';
+import React from 'react';
 import Remixx from 'remixx';
-import { createStore, combineReducers, bindActionCreators } from 'redux';
-import MyRespondComponent from './MyRespondComponent';
+import Switcher from './components/Switcher'
+import Sidebar from './components/Sidebar'
 import configureStore from './configureStore';
+import styles from './css/App.css'
 const { store, firstRoute } = configureStore()
-const reducer = combineReducers({
-  page: (state, action) => action.type || 'HOME',
-});
-const StoreContext = Remixx.StoreContext;
 
+const StoreContext = Remixx.StoreContext;
 
 const StoreContextProvider = props => <StoreContext.Provider value={props.store} children={props.children}/>;
 
-
 const App = () => (
-  <div>
+  <div className={styles.app}>
     <StoreContextProvider store={store}>
-      <MyRespondComponent/>
+      <Sidebar/>
+      <Switcher/>
     </StoreContextProvider>
   </div>
 );
+
+store.dispatch(firstRoute())
+
 
 export default App;

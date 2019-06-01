@@ -63,7 +63,6 @@ module.exports = {
               localIdentName: '[local]___[hash:base64:5]',
             },
           },
-          'sass-loader',
         ],
       },
     ],

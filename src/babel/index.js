@@ -89,14 +89,6 @@ export default ({ types: t }) => ({
         return;
       }
 
-      // if(path.node && path.scope) {
-      //   traverse(path.node, {
-      //     JSXIdentifier(path) {
-      //       // console.log(path.node.name);
-      //     }
-      //   }, path.scope);
-      // }
-
       // avoids traversing assigning jsx to variable
       if (!(parent.isReturnStatement() || parent.isArrowFunctionExpression())) {
         return;
@@ -108,9 +100,6 @@ export default ({ types: t }) => ({
       if (t.isJSXExpressionContainer(variable)) {
         return;
       }
-
-      // console.log(path)
-
 
       const name = (() => {
         try {

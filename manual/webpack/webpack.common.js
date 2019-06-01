@@ -1,10 +1,10 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonPaths = require('./paths');
-const path = require('path')
+const path = require('path');
 
 module.exports = {
-  entry: commonPaths.entryPath,
+  entry: [commonPaths.entryPath],
   module: {
     rules: [
       {
@@ -33,7 +33,7 @@ module.exports = {
             },
           },
         ],
-      },
+      }
     ],
   },
   serve: {
@@ -44,7 +44,7 @@ module.exports = {
     open: true,
   },
   resolve: {
-    modules: ['../node_modules','node_modules'],
+    modules: ['src', 'node_modules'],
     // extensions: ['*', '.js', '.jsx', '.css', '.scss'],
   },
   plugins: [

@@ -12,7 +12,7 @@ const useRespond = () => {
   const actions = bindActionCreators(getState.actions, dispatch)
   const state = getState()
 
-  return {state, actions}
+  return {state, actions, dispatch}
 }
 
 export default {
