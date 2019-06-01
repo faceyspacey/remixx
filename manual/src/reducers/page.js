@@ -1,4 +1,7 @@
-export default (state = 'Home', action = {}) => components[action.type] || state
+export default (state = 'Home', action = {}) => {
+  console.log('page reducer',state,action)
+  return components[action.type] || state
+}
 
 const components = {
   HOME: 'Home',

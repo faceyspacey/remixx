@@ -7,7 +7,7 @@ const UniversalComponent = universal(({ page }) => import(`./${page}`), {
   minDelay: 500
 })
 const Switcher = (props,state) => {
-  console.log(props)
+  console.log('Switcher', state)
   return (
     <div className={styles.switcher}>
       <UniversalComponent page={state.page} />

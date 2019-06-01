@@ -1,5 +1,4 @@
 import path from 'path';
-import crc32 from 'crc-32';
 
 export const doesReturnJSX = (node) => {
   if (node.isJSXElement()) {

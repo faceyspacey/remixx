@@ -2,10 +2,10 @@ import React from 'react';
 import styles from '../css/Sidebar.css';
 
 // TODO: Use the link package
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 
 // TODO: fix NavLink when object is passed via the "to" prop
 const Sidebar = (props, state, actions) => {
+  const {dispatch} = props
   const { path } = state;
   return (
     <div className={styles.sidebar}>
