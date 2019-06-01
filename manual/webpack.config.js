@@ -1,37 +1,11 @@
-const Remixx = require('../dist/webpack/index').default;
-const path = require('path');
+const webpackMerge = require('webpack-merge');
+const common = require('./webpack/webpack.common');
 
-module.exports = {
-  mode: 'development',
-  entry: require.resolve('./source.js'),
-  output: {
-    chunkFilename: '[name].js',
-    publicPath: '/dist/',
-    crossOriginLoading: 'anonymous',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-        }
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'css-loader',
-        ],
-      },
-    ],
-  },
-  resolve: {
-    alias: {
-      remixx: path.resolve(__dirname, '../dist'),
-    }
-  },
-  plugins: [
-    new Remixx()
-  ]
+const envs = {
+  development: 'dev',
+  production: 'prod',
 };
+/* eslint-disable global-require,import/no-dynamic-require */
+const env = envs[process.env.NODE_ENV || 'development'];
+const envConfig = require(`./webpack/webpack.${env}.js`);
+module.exports = webpackMerge(common, envConfig);

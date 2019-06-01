@@ -18,20 +18,12 @@
     "dist"
   ],
   "scripts": {
-    "compile": "babel src/babel -d dist/babel && babel src/webpack -d dist/webpack",
+    "compile": "babel src -d dist",
+    "compile:babel": "npm run compile && cd manual && babel src -d babel-dist",
     "test": "npm run eslint && npm run tsc-test && npm run jest",
     "lint": "eslint --ext .js,.ts,.tsx --ignore-pattern dist . --fix",
     "jest": "jest",
-    "manual": "npm run compile && cd manual && npm run manual",
-    "examples:minimal": "DIR=01_minimal EXT=js webpack-dev-server",
-    "examples:typescript": "DIR=02_typescript webpack-dev-server",
-    "examples:deep": "DIR=03_deep webpack-dev-server",
-    "examples:immer": "DIR=04_immer webpack-dev-server",
-    "examples:localstate": "DIR=05_localstate webpack-dev-server",
-    "examples:memoization": "DIR=06_memoization webpack-dev-server",
-    "examples:multistore": "DIR=07_multistore webpack-dev-server",
-    "examples:dynamic": "DIR=08_dynamic webpack-dev-server",
-    "examples:thunk": "DIR=09_thunk webpack-dev-server"
+    "manual": "npm run compile && cd manual && npm run manual"
   },
   "keywords": [
     "react",
@@ -43,6 +35,11 @@
     "pure"
   ],
   "license": "MIT",
+  "peerDependencies": {
+    "react-dom": ">=16.8.0",
+    "react": ">=16.8.0",
+    "redux": ">=4.0.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.3",
@@ -62,15 +59,14 @@
     "html-webpack-plugin": "^3.2.0",
     "immer": "^2.1.3",
     "jest": "^24.1.0",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
-    "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.3333",
     "webpack": "^4.29.4",
     "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.1.14",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "babel": {
     "presets": [
@@ -85,15 +81,13 @@
       "@babel/preset-react"
     ]
   },
-  "peerDependencies": {
-    "react": ">=16.8.0",
-    "redux": ">=4.0.0"
-  },
   "dependencies": {
     "@babel/helper-module-imports": "^7.0.0",
+    "@babel/traverse": "^7.4.3",
     "cacache": "^11.3.2",
     "crc-32": "^1.2.0",
     "find-cache-dir": "^2.1.0",
+    "reactive-react-redux": "^1.8.0",
     "serialize-javascript": "^1.6.1",
     "source-map": "^0.7.3",
     "webpack-sources": "^1.3.0",
