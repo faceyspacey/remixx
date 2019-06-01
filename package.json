@@ -12,13 +12,13 @@
   ],
   "main": "./dist/index.js",
   "module": "./src/index.js",
-  "types": "./src/index.d.ts",
   "files": [
     "src",
     "dist"
   ],
   "scripts": {
     "compile": "babel src -d dist",
+    "compile:watch": "babel-watch babel src -d dist",
     "compile:babel": "npm run compile && cd manual && babel src -d babel-dist",
     "test": "npm run eslint && npm run tsc-test && npm run jest",
     "lint": "eslint --ext .js,.ts,.tsx --ignore-pattern dist . --fix",
@@ -36,8 +36,8 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "react-dom": ">=16.8.0",
     "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
     "redux": ">=4.0.0"
   },
   "devDependencies": {
@@ -59,14 +59,14 @@
     "html-webpack-plugin": "^3.2.0",
     "immer": "^2.1.3",
     "jest": "^24.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "redux-thunk": "^2.3.0",
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.3333",
     "webpack": "^4.29.4",
     "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.1.14",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "webpack-dev-server": "^3.1.14"
   },
   "babel": {
     "presets": [
@@ -88,6 +88,7 @@
     "crc-32": "^1.2.0",
     "find-cache-dir": "^2.1.0",
     "reactive-react-redux": "^1.8.0",
+    "regenerator-runtime": "^0.13.2",
     "serialize-javascript": "^1.6.1",
     "source-map": "^0.7.3",
     "webpack-sources": "^1.3.0",

@@ -44,8 +44,8 @@ module.exports = {
     open: true,
   },
   resolve: {
-    modules: ['src', 'node_modules'],
-    extensions: ['*', '.js', '.jsx', '.css', '.scss'],
+    modules: ['../node_modules','node_modules'],
+    // extensions: ['*', '.js', '.jsx', '.css', '.scss'],
   },
   plugins: [
     new webpack.ProgressPlugin(),

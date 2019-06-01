@@ -10,7 +10,7 @@
     "Zack Jackson <zack@ScriptedAlchemy.com> (https://github.com/ScriptedAlchemy)"
   ],
   "scripts": {
-    "manual": "cross-env NODE_ENV=development webpack-dev-server",
+    "manual": "yarn link remixx && yarn link redux && cross-env NODE_ENV=development webpack-dev-server",
     "babel": "cd ../ npm run compile; cd ./newManual; babel src -d babeloutput"
   },
   "devDependencies": {
@@ -21,6 +21,8 @@
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.6",
+    "babel-watch": "^7.0.0",
+    "core-js": "^3.1.3",
     "eslint-loader": "^2.1.2",
     "react-hot-loader": "^4.8.8",
     "webpack": "^4.32.2",
@@ -30,6 +32,7 @@
   },
   "dependencies": {
     "@babel/helper-module-imports": "^7.0.0",
+    "@respond-framework/rudy": "^0.1.1-test.1",
     "crc-32": "^1.2.0",
     "cross-env": "^5.2.0",
     "html-webpack-plugin": "^3.2.0",

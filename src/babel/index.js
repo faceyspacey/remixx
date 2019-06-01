@@ -19,8 +19,7 @@ export default ({ types: t }) => ({
       const declarationNode = path.get('declaration');
       const arrow = declarationNode.isArrowFunctionExpression();
       // console.log(declarationNode)
-
-      if (opts.filename.includes('App.jsx')) {
+      if (opts.filename.includes('App.js')) {
         return;
       }
 
@@ -86,7 +85,7 @@ export default ({ types: t }) => ({
     JSXElement(path, { file: { opts } }) {
       const { parentPath: parent } = path;
 
-      if (opts.filename.includes('App.jsx')) {
+      if (opts.filename.includes('App.js')) {
         return;
       }
 
