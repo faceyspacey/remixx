@@ -88,7 +88,7 @@
     "crc-32": "^1.2.0",
     "find-cache-dir": "^2.1.0",
     "reactive-react-redux": "^1.8.0",
-    "serialize-javascript": "^1.6.1",
+    "serialize-javascript": "^2.1.1",
     "source-map": "^0.7.3",
     "webpack-sources": "^1.3.0",
     "worker-farm": "^1.6.0"
